@@ -45,6 +45,12 @@ class Resource(object):
             return self.data[attr]
         raise KeyError
 
+    def __bool__(self):
+        return self.is_valid()
+
+    def __nonzero__(self):
+        return self.is_valid()
+
     def is_valid(self):
         try:
             validate(self.data, self.schema.__dict__)

@@ -77,6 +77,7 @@ class ResourceTestCase(TestCase):
         old = self.result.schema.required
         self.result.schema.required = "ble"
         self.assertFalse(self.result.is_valid())
+        self.assertFalse(self.result)
         self.result.schema.required = old
 
     @patch("pluct.schema.from_header")
@@ -91,9 +92,11 @@ class ResourceTestCase(TestCase):
         get.return_value = mock
         result = resource.get(url="appurl.com", auth=None)
         self.assertFalse(result.is_valid())
+        self.assertFalse(result)
 
     def test_is_valid(self):
         self.assertTrue(self.result.is_valid())
+        self.assertTrue(self.result)
 
     @patch('pluct.resource.from_response')
     @patch("requests.get")
